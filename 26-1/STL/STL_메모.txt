@@ -1,0 +1,58 @@
+26/03/03
+C++ 과목임
+출석 점수 없음, 1/4 이상만 결석하지 않기
+사진 및 동영상 촬영, 음성 녹음 가능
+딴 짓 하다가 교수 심기 건드리면 수업 안하고 배쨀거다 선언
+학점 ㅈㄴ 빡세게 줄거다, 지난 학기 수업 F 40% 이상
+시험때는 수업 안들었거나, gpt 등 ai는 못풀도록 만들 예정
+수업시간에 모르는 문제같은 것은 교수 메일로 보내면 며칠 내로 답해줄것이다 (메일 : wulong@tukorea.ac.kr)
+C++ 복습하기
+
+C++ -> Object Oriented P/L 객체지향 프로그래밍 언어
+	   유저가 자유롭게 정의할 수 있음
+
+class NPC { 		-> coding convention
+			-> modeling
+attributes; <- variable 변수
+behaviors; <- function 함수
+};
+
+NPC a; -> instancing -> { STACK, DATA, free-store(HEAP) } 영역 중 한 곳에 존재
+
+NPC <-> MONSTER <-> PLAYER <-> NPC 객체들간의 관계
+
+매우 특수한 관계 : Inheritance 상속
+
+상속-	1. code reuse 코드 재활용
+	2. polymorphism 다형성 구현
+
+C++ - OOP 	virtual - vptr 가상함수 테이블을 위한 포인터가 무조건 할당됨
+ㄴ> 문제를 해결하기 위한 방법 
+
+C++ STL -> Standard Template Library
+Template -> General Programming -> Generic 자료형과 관계없는! -> 함수 => algorithm     --- } template
+											  -> 클래스 => container     /
+참고자료는 https://www.cppreference.com 참고
+deque -> 디큐 아님 뎈 라고 읽음
+Iterators 23개의 디자인 패턴 중 하나 -> 자료구조와 알고리즘을 엮어주는 본드 역할, 중요
+
+과제 예제
+1. 게임 세이브 파일 세이브, 로드 구현
+2. 수천만개의 데이터를 정렬하여 원하는 데이터 검색 및 속도
+3. 1억개 이상의 정수를 합산하여 그 답이 얼마나 정확한지?
+
+시험은 완전 오픈북 -> ㅈㄴ 어렵다
+
+
+26/03/09
+시험때 새로운 빈프로젝트를 생성할때 컴파일러 버전 꼭 최신버전으로 변경할 것
+
+26/03/10
+알고리즘 절차 -> 자료형에 관계 없이 절차만 지키면 문제 없이 실행되는 것
+save.h 와 save.cpp를 나누는 이유 -> (정의)save.cpp를 감추고 싶어서 (선언)save.h만 보여주기 위해
+템플릿은 찍어내기 위해서 정의를 감출 수 없음
+() 콜러블 펑션 - 뭘 호출해야 하나 - 호출 우선순위 결정
+템플릿 추론 template deduction
+double에대한 specialization
+템플릿의 단점 : 오류가 생겼을 때 문제가 생긴 부분을 찾기 어렵다 ex) 1줄 틀려서 에러폭풍
+템플릿의 장점 : 나머지 전부 다, 코드의 재사용성과 성능이 증가
