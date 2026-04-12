@@ -1,52 +1,53 @@
 ﻿//-------------------------------------------------------------------
-// 2026년 1학기 STL 월56화78			3월 24일				(4주 1 일)
+// 2026년 1학기 STL 월56화78			4월 7일			(6주 1일)
 //-------------------------------------------------------------------
-// 스마트 포인터 -> 콜러블 타입 -> 실습 -> STL
+// STL 컨테이너 - std::string과 유사한 ZString을 만들어서 컨테이너 본질에 접근
 //-------------------------------------------------------------------
 #include <iostream>
-#include <numeric>
-#include <memory>
+#include <string>
+#include<memory>
 #include "save.h"
 
-// [문제] 사용자가 입력한 수만큼 int를 저장할 메모리를 확보하라.
-// 1부터 시작하는 정수로 메모리를 채워라.
-// 합계를 화면에 출력하라.
+class ZString {
+public:
+	ZString() {
+		std::cout << "생성() 글자수:" << len << " 객체:" << this << " 글자주소:" << (void*)p.get() << std::endl;
+	};
+
+	ZString(const char* s) {
+		len = strlen(s);
+		p = std::make_unique<char[]>(len);
+		memcpy(p.get(), s, len);
+
+		std::cout << "생성(char*) 글자수:" << len << " 객체:" << this << " 글자주소:" << (void*)p.get() << std::endl;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os, const ZString& zs) {
+		for (int i = 0; i < zs.len; ++i)
+			os << *(zs.p.get() + i);
+		return os;
+	}
+
+private:
+	size_t len{};
+	std::unique_ptr<char[]> p{};
+};
 
 //--------
 int main()
 //--------
-{
-	//int* p; -> 사용하지 말아야 함
-	// C++11(Modern C++)에 이것의 완벽한 대체 수단이 있기 때문에 -> smart_point
-	
-	std::unique_ptr<int[]> p;
-	while (true) {
-		std::cout << "int 몇 개가 필요하신지? ";
-		size_t num;
-		std::cin >> num;
+{	
+	// 이 동작 다시 설명하고 ZString으로 바꾸면 안되는 이유부터 시작
 
-		try {
-			p.reset( new int[num] );
-		}
-		catch (std::exception& e) {
-			std::cout << "메모리가 고갈 - " << e.what() << std::endl;
-		}
+	std::string s{ "2026년" };
+	std::string t = move(s);
+	std::cout << "s - " << s << std::endl;
+	std::cout << "t - " << t << std::endl;
 
-		//for (int i = 0; i < num; ++i) {
-		//	p[i] = i + 1;
-		//}
-		std::iota(p.get(), p.get() + num, 1);
-
-		//long long sum{};
-		//for (int i = 0; i < num; ++i) {
-		//	sum += p[i];
-		//}
-
-		long long sum = std::accumulate(p.get(), p.get() + num, 0LL); // 접미사 long long
-		std::cout << "1 부터 " << num << "까지의 합계 ----- " << sum << std::endl; // 가산한다
-
-		//delete[] p; 더이상 내가 직접 메모리 반환을 안해도 됨
-	}
+	ZString a{ "2026" };
+	std::cout << a << std::endl;
+	ZString b{ "0407" };
+	std::cout << b << std::endl;
 
 	save("메인.cpp");
 }
